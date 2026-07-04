@@ -1,120 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeingInfinity</title>
-
-    <style>
-
-        body{
-            text-align:center;
-            font-family:Times New Roman;
-        }
-
-        #container{
-            width:800px;
-            border:2px solid red;
-            border-radius:15px;
-            margin:auto;
-            margin-top:100px;
-            padding:20px;
-        }
-
-        #header{
-            overflow:hidden;
-        }
-        
-        #left{
-            float:left;
-            font-size:20px;
-        }
-
-        #right{
-            float:right;
-            font-size:20px;
-        }
-
-        #title{
-            margin-top:20px;
-        }
-
-        #description{
-            margin-top:20px;
-            margin-bottom:20px;
-            font-size:22px;
-        }
-
-        #search{
-            margin-top:20px;
-            margin-bottom:20px;
-        }
-
-        #searchIcon{
-            display:inline;
-            font-size:25px;
-        }
-
-        #searchBox{
-            display:inline;
-        }
-
-        input{
-            width:250px;
-            height:30px;
-        }
-
-        #footer{
-            margin-top:30px;
-            font-size:18px;
-        }
-
-    </style>
-
+    <link rel="stylesheet" href="autosuggest.css">
 </head>
-
 <body>
 
-    <div id="container">
+<div class="container">
 
-        <div id="header">
+    <div class="card">
 
-            <div id="left">
-                ⚙
-            </div>
-
-            <div id="right">
-                ● online | 🕒 - ms
-            </div>
-
+   
+    <div class="top-icons">
+        <span class="gear">&#9881;</span>
+        <div class="status-group">
+            <span>&bull;</span>
+            <span>online</span>
+            <span>|</span>
+            <span>&#128339;</span>
+            <span>- ms</span>
         </div>
-
-        <div id="title">
-            <h1>BeingInfinity</h1>
-        </div>
-
-        <div id="description">
-            <p>
-                One million phrases. Four algorithms.
-                Prefix Based Auto Suggest.
-            </p>
-        </div>
-
-        <div id="search">
-
-            <div id="searchIcon">
-                🔍
-            </div>
-
-            <div id="searchBox">
-                <input type="text" placeholder="Start typing to search">
-            </div>
-
-        </div>
-
     </div>
 
-    <div id="footer">
-        Copyright © Being Infinity Pvt. Ltd.
+
+    <h1><span class="purple">Being</span>Infinity</h1>
+
+    <p class="subtitle">
+        One million phrases. Four algorithms. Prefix Based Auto Suggest.
+    </p>
+
+    <div class="search-box">
+        <span class="search-icon">&#128269;</span>
+        <input id="search-box" type="text" placeholder="Start typing to search phrase">
     </div>
 
+    <div class="suggestion-box">
+        <!-- <div class="suggestion-item">Suggestion box</div> -->
+    
+    </div>
+
+</div>
+<script>
+    var searchBox = document.getElementById('search-box');
+    var suggestionBox = document.querySelector('.suggestion-box');
+
+    searchBox.addEventListener('input', function() {
+        var userInput = searchBox.value.trim();
+        if (userInput === "") {
+            suggestionBox.style.display = 'none';
+            suggestionBox.innerHTML = '';
+            return;
+        }
+
+        var url1 = "https://autosuggest-backend.onrender.com/api/autosuggest?q=";
+        var url3 = "&algorithm=brute&limit=10&weighted=false";
+        var url = url1 + encodeURIComponent(userInput) + url3;
+
+        fetch(url)
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                console.log(data);
+                suggestionBox.innerHTML = "";
+
+                var results = data && data.results ? data.results : [];
+                if (!results.length) {
+                    suggestionBox.style.display = 'none';
+                    return;
+                }
+
+                results.forEach(function(item) {
+                    var div = document.createElement('div');
+                    div.classList.add('suggestion-item');
+                    div.textContent = item.text || item;
+                    div.addEventListener('click', function() {
+                        searchBox.value = item.text || item;
+                        suggestionBox.style.display = 'none';
+                    });
+                    suggestionBox.appendChild(div);
+                });
+
+                suggestionBox.style.display = 'block';
+            })
+            .catch(function(error) {
+                console.log(error);
+                suggestionBox.style.display = 'none';
+            });
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!suggestionBox.contains(event.target) && event.target !== searchBox) {
+            suggestionBox.style.display = 'none';
+        }
+    });
+</script>
 </body>
 </html>
