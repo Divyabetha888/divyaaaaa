@@ -1,5 +1,3 @@
-console.log("Hello from JS");
-alert("Hello from JS");
 const users=[
     {
         "name":"Jane Doe",
