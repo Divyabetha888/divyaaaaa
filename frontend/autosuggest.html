@@ -1,24 +1,120 @@
-<span> 🌐 online | ⏱️ -ms</span>
-<h1> BeingInfinity </h1>
+<!DOCTYPE html>
+<html>
 <head>
-    <body>
-        <div>
-            <p> One million phrases. Four algorithms. Prefix Based Auto Suggest</p>
+    <title>BeingInfinity</title>
 
-        <div>
-            <span> 🔍︎</span>
-            <input type="text"
-            placeholder="Start typing to search phrases">
-        </div>
+    <style>
+
+        body{
+            text-align:center;
+            font-family:Times New Roman;
+        }
+
+        #container{
+            width:800px;
+            border:2px solid red;
+            border-radius:15px;
+            margin:auto;
+            margin-top:100px;
+            padding:20px;
+        }
+
+        #header{
+            overflow:hidden;
+        }
         
-        <br>
+        #left{
+            float:left;
+            font-size:20px;
+        }
 
-        <p>
-           Copyright © Being Infinity Pvt. Ltd.
-        </p>
+        #right{
+            float:right;
+            font-size:20px;
+        }
+
+        #title{
+            margin-top:20px;
+        }
+
+        #description{
+            margin-top:20px;
+            margin-bottom:20px;
+            font-size:22px;
+        }
+
+        #search{
+            margin-top:20px;
+            margin-bottom:20px;
+        }
+
+        #searchIcon{
+            display:inline;
+            font-size:25px;
+        }
+
+        #searchBox{
+            display:inline;
+        }
+
+        input{
+            width:250px;
+            height:30px;
+        }
+
+        #footer{
+            margin-top:30px;
+            font-size:18px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="container">
+
+        <div id="header">
+
+            <div id="left">
+                ⚙
+            </div>
+
+            <div id="right">
+                ● online | 🕒 - ms
+            </div>
+
+        </div>
+
+        <div id="title">
+            <h1>BeingInfinity</h1>
+        </div>
+
+        <div id="description">
+            <p>
+                One million phrases. Four algorithms.
+                Prefix Based Auto Suggest.
+            </p>
+        </div>
+
+        <div id="search">
+
+            <div id="searchIcon">
+                🔍
+            </div>
+
+            <div id="searchBox">
+                <input type="text" placeholder="Start typing to search">
+            </div>
+
+        </div>
 
     </div>
 
+    <div id="footer">
+        Copyright © Being Infinity Pvt. Ltd.
+    </div>
 
-    </body>
-</head>
+</body>
+</html>
